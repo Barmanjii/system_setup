@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# Check if the user has sudo privileges
-if ! sudo -v &>/dev/null; then
-  echo "You must have sudo privileges to run this script. Exiting..."
-  exit 1
-fi
-
-# Check if bash is available
-if ! command -v bash &>/dev/null; then
-  echo "Bash is not installed. Please install bash and try again."
-  exit 1
-fi
-
 # Updating and upgrading the system
 echo "Updating and upgrading the system..."
 sudo apt update -y && sudo apt upgrade -y
@@ -34,7 +22,7 @@ install_package() {
 
 # Basic package list to install
 PACKAGES=(
-git gh vim nano neovim curl wget gpg terminator
+git gh vim nano neovim curl wget gpg terminator fzf openssl net-tools
 )
 
 # Installing basic packages
@@ -42,6 +30,62 @@ echo "Installing basic packages..."
 for package in "${PACKAGES[@]}"; do
   install_package "$package"
 done
+
+gh auth login
+
+# Setup Git
+echo "Enter User name:"
+read user_name
+git config --global user.name "$user_name"
+
+echo "Enter Email address:"
+read email
+git config --global user.email "$email"
+
+# Function to install custom git aliases from a file
+install_git_aliases() {
+  echo "Do you want to install custom git aliases? [y/N]"
+  read -r response
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+    ALIAS_FILE="./settings/git-aliases.txt"  
+
+    # Check if the alias file exists
+    if [[ -f "$ALIAS_FILE" ]]; then
+      echo "Adding custom git aliases to .gitconfig..."
+
+      # Check if [alias] section exists in .gitconfig
+      if ! grep -q "^\[alias\]" ~/.gitconfig; then
+        echo "[alias]" >> ~/.gitconfig
+      fi
+
+      # Read the alias file and add each alias
+      while read -r alias_line; do
+        # Skip empty lines or comments
+        if [[ -z "$alias_line" || "$alias_line" =~ ^# ]]; then
+          continue
+        fi
+
+        # Check if alias line starts with '  ' (indentation), remove leading spaces/tabs
+        alias_line=$(echo "$alias_line" | sed 's/^[[:space:]]*//')
+
+        # Check if the alias already exists in .gitconfig
+        alias_name=$(echo "$alias_line" | cut -d' ' -f1)
+        if ! grep -q "^$alias_name =" ~/.gitconfig; then
+          echo "$alias_line" >> ~/.gitconfig
+        else
+          echo "Alias '$alias_name' already exists, skipping."
+        fi
+      done < <(sed '1d' "$ALIAS_FILE")  # Remove the first line with '[alias]'
+
+      echo "Git aliases have been added to .gitconfig."
+    else
+      echo "Alias file $ALIAS_FILE does not exist."
+    fi
+  fi
+}
+
+# Main installation procedure
+install_git_aliases
 
 # Prompt to install additional software
 echo "Do you want to install additional software (e.g., VSCode, Slack, Brave)? [y/N]"
@@ -51,7 +95,6 @@ if [[ "$install_software" =~ ^[Yy]$ ]]; then
   # List of additional software scripts
   SCRIPTS=(
     "install_vscode.sh"
-    "install_slack.sh"
     "install_brave.sh"
   )
 

@@ -1,0 +1,55 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.folders.theme": "classic",
+    "workbench.colorTheme": "One Monokai",
+    "editor.wordWrap": "on",
+    "workbench.editor.enablePreview": false,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.minimap.enabled": false,
+    "debug.openDebug": "openOnDebugBreak",
+    "debug.internalConsoleOptions": "openOnSessionStart",
+    "dart.debugSdkLibraries": true,
+    "dart.debugExternalPackageLibraries": true,
+    "dart.openDevTools": "flutter",
+    "dart.enableSdkFormatter": true,
+    "dart.showInspectorNotificationsForWidgetErrors": false,
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.selectionHighlight": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.bracketPairColorization.enabled": true,
+    },
+    "workbench.productIconTheme": "developer-icons",
+    "workbench.sideBar.location": "right",
+    "githubPullRequests.pullBranch": "never",
+    "explorer.confirmDelete": false,
+    "workbench.startupEditor": "none",
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "diffEditor.ignoreTrimWhitespace": false,
+        "gitlens.codeLens.symbolScopes": [
+            "!Module"
+        ],
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off"
+    },
+    "workbench.settings.applyToAllProfiles": [],
+    "hediet.vscode-drawio.resizeImages": null,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.include": [
+        "/home/barmanji/peppermint_ws/install/"
+    ],
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmPasteNative": false,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },    "terminal.integrated.defaultProfile.linux": "bash",
+    "dart.flutterSdkPath": "/home/barmanji/flutter-SDK/flutter",
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": "",}

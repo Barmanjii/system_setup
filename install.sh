@@ -34,7 +34,7 @@ install_package() {
 
 # Basic package list to install
 PACKAGES=(
-git gh vim nano neovim curl wget gpg
+git gh vim nano neovim curl wget gpg terminator
 )
 
 # Installing basic packages

@@ -49,7 +49,11 @@
     "explorer.confirmPasteNative": false,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
-    },    "terminal.integrated.defaultProfile.linux": "bash",
+    },
+
+    "terminal.integrated.defaultProfile.linux": "bash",
     "dart.flutterSdkPath": "/home/barmanji/flutter-SDK/flutter",
     "python.defaultInterpreterPath": "/usr/bin/python3",
-    "liveServer.settings.AdvanceCustomBrowserCmdLine": "",}
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+
+}

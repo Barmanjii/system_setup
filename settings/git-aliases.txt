@@ -1,0 +1,4 @@
+[alias]
+  sync =  !git fetch -p && git pull
+  bap = "!f() { git add . && git commit -m \"$1\" && git push; }; f"
+

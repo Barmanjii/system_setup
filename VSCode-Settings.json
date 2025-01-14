@@ -20,7 +20,7 @@
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": "off",
-        "editor.bracketPairColorization.enabled": true,
+        "editor.bracketPairColorization.enabled": true
     },
     "workbench.productIconTheme": "developer-icons",
     "workbench.sideBar.location": "right",
@@ -54,6 +54,5 @@
     "terminal.integrated.defaultProfile.linux": "bash",
     "dart.flutterSdkPath": "/home/barmanji/flutter-SDK/flutter",
     "python.defaultInterpreterPath": "/usr/bin/python3",
-    "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
-
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": ""
 }

@@ -6,11 +6,14 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
   echo "Installing Visual Studio Code..."
 
   # Install dependencies for Visual Studio Code
-  sudo apt install -y software-properties-common apt-transport-https curl
+  sudo apt install -y software-properties-common apt-transport-https
 
   # Add the Microsoft repository and key
-  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/packages.microsoft.gpg
-  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+  sudo apt-get install wget gpg
+  wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+  echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+  rm -f packages.microsoft.gpg
 
   # Install Visual Studio Code
   sudo apt update
@@ -21,7 +24,7 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
   # Install VS Code Extensions
 
   # Check if the extensions file exists
-  if [ ! -f "./vscode-extensions.txt" ]; then
+  if [ ! -f "./settings/vscode-extensions.txt" ]; then
     echo "Extensions list file 'vscode-extensions.txt' not found. Please create it with the extension IDs."
     exit 1
   fi
@@ -38,31 +41,25 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
         code --install-extension "$extension"
       fi
     fi
-  done < "./vscode-extensions.txt"
+  done < "./settings/vscode-extensions.txt"
 
   echo "VS Code extensions have been installed."
 
   # Set custom settings and keybindings (adjust paths accordingly)
   echo "Applying custom settings and keybindings for VS Code..."
 
-  # Define the target directory for VS Code user settings on Ubuntu
+  # Define the VS Code user settings directory
   VSCODE_USER_SETTINGS_DIR="${HOME}/.config/Code/User"
 
   # Check if VS Code settings directory exists
   if [ -d "$VSCODE_USER_SETTINGS_DIR" ]; then
-    # Link custom settings and keybindings files
-    ln -sf "${HOME}/settings/VSCode-Settings.json" "${VSCODE_USER_SETTINGS_DIR}/settings.json"
-    ln -sf "${HOME}/settings/VSCode-Keybindings.json" "${VSCODE_USER_SETTINGS_DIR}/keybindings.json"
-    echo "VS Code settings and keybindings have been updated."
+    # Move the settings and keybindings files to the correct directory
+    mv "./settings/VSCode-Settings.json" "${VSCODE_USER_SETTINGS_DIR}/settings.json"
+    mv "./settings/VSCode-Keybindings.json" "${VSCODE_USER_SETTINGS_DIR}/keybindings.json"
+  echo "VS Code settings and keybindings have been updated."
   else
     echo "VS Code user settings directory does not exist. Please ensure VS Code is installed."
   fi
-
-  # Open VS Code (optional: you can skip this if you don't want to open VS Code automatically)
-  code .
-  echo "Login to extensions (Copilot, Grammarly, etc.) within VS Code."
-  echo "Press enter to continue..."
-  read
 else
   echo "Skipping VS Code installation and configuration."
 fi

@@ -22,7 +22,7 @@ install_package() {
 
 # Basic package list to install
 PACKAGES=(
-git gh vim nano neovim curl wget gpg terminator fzf openssl net-tools
+git gh vim nano neovim curl wget gpg terminator fzf openssl net-tools zsh
 )
 
 # Installing basic packages
